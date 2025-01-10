@@ -244,7 +244,7 @@ st.latex("\sigma_{zodiacale} = \sqrt{\eta \cdot F_{zodiacale, \lambda} \cdot S_{
 
 ################################## Fluctuation de phase : Piston jitter
 st.markdown("*La fluctuation de phase* : $\sigma_{jitter}$")
-st.markdown("Le piston jitter représentant les variations temporelles de la différence de chemin optique $\delta$ entre deux bras de l'interféromètre. Considéré comme aléatoire, elle sont de façon générale formalisé par une distribution statistique gaussienne, avec une variance $\sigma_{jitter}$ liée aux vibrations mécaniques et/ou instabilités des systemès optique.")
+st.markdown("Le piston jitter représentant les variations temporelles de la différence de chemin optique $\delta$ entre deux bras de l'interféromètre. Considéré comme aléatoire, elles sont souvent formalisé par une distribution statistique gaussienne, avec une variance $\sigma_{jitter}$ liée aux vibrations mécaniques et/ou instabilités des systemès optique.")
 
 st.latex("P(\delta) = \\frac{1}{ \sqrt{2\pi \sigma_{jitter}^2} } \cdot e^{ -\\frac{\delta^2}{2 \sigma_{jitter}^2} }")
 st.markdown("""
@@ -254,7 +254,7 @@ Tel que :
 - $\sigma_{jitter}$ : L'écart type du piston jitter
 """)
 
-st.markdown("Le piston de jitter introduit donc une fluctuation temporelle de la phase $\phi(t) = \\frac{2\pi}{\lambda}\cdot \delta(t)$")
+st.markdown("Le piston de jitter introduit une fluctuation temporelle de la phase:")
 
 st.latex("\phi (t) = \\frac{2\pi}{\lambda} \delta(t)")
 st.markdown("""
@@ -265,15 +265,35 @@ Avec :
 - $\delta(t)$  : La variation temporelle du chemin optique différentiel
 """)
 
-st.markdown("*Remarque*: par linéarité, que la phase $\phi$ suit également une loie normale.")
+st.markdown("En interférométrie la visibilité $V$  mesure la moyenne temporelle de la cohérence entre les faisceaux tels que :")
+st.latex("V \propto < cos(\phi(t))>")
+st.markdown("La présence de fluctuation de phase entre les faisceaux, décrites statistiquement par une densité de probabilité $P(\phi)$, conduit à une baisse de contraste des franges d'interférences, donc de la visibilité. En résumé, le contraste est proportionnel à la valeur moyenne de $cos(\phi(t))$ pondérée par la probabilité que chaque phase $\phi$ se produise, donnée par $P(\phi)$ :")
+st.latex("V \propto < cos(\phi(t))> \propto \int_R cos(\phi(t)) \cdot P(\phi(t)) d\phi ")
 
+st.markdown("Puisque nous avons supposé que le piston jitter suit un distribution gaussienne alors par linéarité, la phase suit également cette distribution tels que :")
 
+st.latex("V \propto \int_R cos(\phi(t)) \cdot \\frac{1}{\sqrt{2\pi \sigma^2_\phi}} \cdot e^{ - \\frac{\phi^2}{2 \cdot \sigma^2_\phi} } d\phi ")
 
-st.markdown("La variance des fluctuation de phase s'exprime donc comme:")
-st.latex("\sigma_{\phi}^2 = (\\frac{2\pi}{\lambda})^2\cdot \sigma_{jitter}^2")
+st.markdown("En utilisant l'identité d'Euler sur le cosinus, on trouve : ")
 
+st.latex("V \propto \\frac{1}{2\cdot \sqrt{2\pi \sigma^2_\phi} } \cdot \int_R e^{i \phi} \cdot e^{ - \\frac{\phi^2}{2 \cdot \sigma^2_\phi }} d\phi + \\frac{1}{2\cdot \sqrt{2\pi \sigma^2_\phi} } \cdot \int_R e^{-i \phi} \cdot e^{ - \\frac{\phi^2}{2 \cdot \sigma^2_\phi }} d\phi")
 
+st.markdown("D'une façon générale, l'intégrale d'une exponentielle complexe avec une gaussienne donne le résultat suivant : ")
+st.latex("\int e^{iax} \cdot e^{\\frac{x^2}{2 \sigma^2_x}} = \sqrt{2\pi\sigma^2_x} \cdot e^{\\frac{a^2 \sigma^2_x}{2}}")
 
+st.markdown("En utilisant ce résultat on obtient :")
+
+st.latex("V \propto e^{ \\frac{\sigma^2_\phi}{2} } ")
+
+st.markdown("Finalement, les fluctuations de phases vont avoir un impact sur la quantité/qualité du signal reçu $S$  mais n'est pas à proprement parlé une source de bruit. De sorte que nous noterons :  ")
+st.latex("S = n_{photon} \cdot V_0 \cdot e^{ \\frac{\sigma^2_\phi}{2} }")
+
+st.markdown("""Avec : 
+
+- $n_{photon}$ : Le nombre de photon provenant de la source
+- $V_0$ : La visibilité s'il n'y avait pas de fluctuation de phase
+- $\sigma^2_\phi = (\\frac{2\pi}{\lambda})^2 \cdot \sigma^2_ {jitter}$
+""")
 
 ########################################## Somme des bruits
 st.markdown("**Somme des bruits**")
