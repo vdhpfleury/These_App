@@ -570,11 +570,30 @@ with col2 :
     # Affichage du graphique dans Streamlit
     st.pyplot(fig)
 
+st.markdown("""Dans l'expression de Planck le flux est exprimé en $[J.m^{-2}.sr^{-1}.s^{-1}. m^{-1}]$. Nous allons procèder à sa conversion en l'exprimant en nombre de photon pour être cohérent avec les notations précèdentes du SNR. En plus de l'energie d'un photon nous aurons à prendre en considération le temps d'intégration, la bande passante ainsique la distance à laquelle nous receptionnons ce flux. Pour ce faire les opérations suivantes sont nécessaires :
+
+- 1. Diviser par l'energie d'un photon : $E_{photon} = \\frac{hc}{\lambda} $ 
+- 2. Multiplier par le temps d'intégration : $\Delta t$
+- 3. Multiplier par la bande passante : $\Delta \lambda$
+- 4. Diviser par un facteur $4 \pi d^2$ tel que $d$ représente la distance entre la source et les collecteurs.
+
+Suite à ces ajustements, le flux peut être exprimé en $[ph.m^{-2}]$:
+""")
+st.latex("F_\lambda(T_{eff}) = \\frac{hc}{\lambda^5} \\frac{1}{ e^{ \\frac{hc}{\lambda \cdot k_b T_{eff}} } - 1 } \cdot  \\frac{1}{E_{photon}} \cdot \\frac{1}{4\pi d^2} \cdot \Delta t \cdot\Delta \lambda")
+
 ################################## Paramètres du collecteurs
 st.markdown("**Paramètres du collecteurs**")
+st.markdown("En reprennant l'expression du flux ci dessus, nous mettons en évidence une dépendance à une suface. En effet, nous comprennons que plus la surface collectrice est grande plus cette dernière est en mesure de collecter un grand nombre de photon. Néanmoins aucun miroir et plus largement, systeme optique n'opère avec une efficacité de 100$%$. Autrement dit, les photons seront transmit avec un coéfficient, compris entre 0 et 1, propore à l'instrument que l'on note $\eta$. Ces paramètres vont modifier l'expression du flux reçu par un detecteur comme suit : ")
+
+st.latex("F_\lambda(T_{eff}) = \\frac{hc}{\lambda^5} \\frac{1}{ e^{ \\frac{hc}{\lambda \cdot k_b T_{eff}} } - 1 } \cdot  \\frac{1}{E_{photon}} \cdot \\frac{1}{4\pi d^2} \cdot \Delta t \cdot\Delta \lambda \cdot S_{Coll} \cdot \eta ")
+st.markdown("Nous noterons que pour un collecteur cirdualire, $S_{Coll}$ n'est rien d'autre que l'air du miroir soit : $S_{Coll} = \pi (\\frac{D}{2})^2$.")
 
 ################################## Calcul du SNR
 st.markdown("**Calcul du SNR**")
+st.markdown("Nous rappelons l'expression du SNR, hors apodisation, précèdement démontré pour un collecteur: ")
+
+st.latex("SNR = \\frac{ n_{ph} \cdot V_0 \cdot e^{\\frac{\sigma_{\phi}^2}{2}} }{ \sqrt{ n_{ph} + n_{th} + n_{px} \cdot RON^2 + (\gamma \cdot n_{th})^2} }")
+st.markdown("Nous constatons qu'au dela des paramètre de la cible et du collecteur, la stabilité du système optique va impacter ce SNR via la fluctuation de phase $\simga_{\phi}$, ce qui en fait un paramètre dimenssionant la sensibilité d'un tel instrument, de même que ça capacité à filter les longeurs d'ondes indésirables (\gamma).")
 
 
 # VII.
