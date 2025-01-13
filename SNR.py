@@ -522,6 +522,53 @@ st.subheader("VI. Simualteur de SNR d'un interféromètre spatiales à 2 telésc
 
 ################################## Paramètres de la cible
 st.markdown("**Paramètres de la cible**")
+################################## Paramètres de la cible
+st.markdown("**Paramètres de la cible**")
+st.markdown("Le flux de photon collecté dépend étroitement des caractéristiques de la cible. Supposons que cette dernière se comporte comme un corps noir, nous sommes alors en mesure de dresser une premier spectre grâce à la loie de Planck dont nous rapellons l'expression ci dessous :")
+st.latex("F_\lambda(T_{eff}) = \\frac{hc}{\lambda^5} \\frac{1}{ e^{ \\frac{hc}{\lambda \cdot k_b T_{eff}} } - 1 }")
+
+st.markdown("""Avec : 
+
+- $T_{eff}$ : Temperature effective de la source
+- $ h $     : La constante de Planck
+- $ c $     : La vitesse de la lumière
+- $ lambda$ : La longueur d'onde considéré
+- $ k_b$    : La constante de Botzman
+
+""")
+st.markdown("Le graphe dynamique ci dessous permet d'imager cette équation en fonction de la température $T_{eff}$ de la source et de la bande de longueur d'onde d'observation.")
+col1, col2 = st.columns(2)
+with col1 :
+    wavelength = st.slider("Selectionner un domaine de longueur d'onde [nm]", 0.0, 20000.0, (400.0, 800.0))
+    temp = st.number_input("Température (K)", value = 400.0)
+    
+    # Conversion des longueurs d'onde en mètres
+    wavelengths_nm = np.linspace(wavelength[0], wavelength[1], 500)
+    wavelengths_m = wavelengths_nm * 1e-9
+
+    def planck(wavelength, temperature):
+        """
+        Calcule la fonction de Planck pour une longueur d'onde et une température données.
+        wavelength : Longueur d'onde en mètres (array ou scalaire)
+        temperature : Température en Kelvin (scalaire)
+        Retourne : Intensité spectrale (W/m^2/sr/m)
+        """
+        return (2 * h * c**2 / wavelength**5) / (np.exp(h * c / (wavelength * k * temperature)) - 1)
+    # Calcul de la fonction de Planck
+    intensities = planck(wavelengths_m, temp)
+    
+with col2 : 
+    # Création du graphique
+    fig, ax = plt.subplots()
+    ax.plot(wavelengths_nm, intensities, color='blue', label=f"T = {temp} K")
+    ax.set_title("Fonction de Planck")
+    ax.set_xlabel("Longueur d'onde (nm)")
+    ax.set_ylabel("Intensité spectrale (W/m²/sr/m)")
+    ax.grid(True)
+    ax.legend()
+
+    # Affichage du graphique dans Streamlit
+    st.pyplot(fig)
 
 ################################## Paramètres du collecteurs
 st.markdown("**Paramètres du collecteurs**")
