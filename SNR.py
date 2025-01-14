@@ -595,9 +595,9 @@ st.markdown("Nous noterons que pour un collecteur cirdualire, $S_{Coll}$ n'est r
 st.markdown("**Calcul du SNR**")
 st.markdown("Nous rappelons l'expression du SNR, hors apodisation, précèdement démontré pour un collecteur: ")
 
-st.latex("SNR = \\frac{ n_{ph} \cdot V_0 \cdot e^{\\frac{\sigma_{\phi}^2}{2}} }{ \sqrt{ n_{ph} + n_{th} + n_{px} \cdot RON^2 + (\gamma \cdot n_{th})^2} }")
+st.latex("SNR = \\frac{ n_{ph} \cdot V_0 \cdot e^{\\frac{\sigma_{\phi}^2}{2}} }{ \sqrt{ n_{ph} + n_{th} + n_{zodiacale} + n_{px} \cdot RON^2 + (\gamma \cdot n_{th})^2} }")
 
-st.markdown("Nous constatons qu'au dela des paramètre de la cible et du collecteur, la stabilité du système optique va impacter ce SNR via la fluctuation de phase $\sigma_{\phi}$, ce qui en fait un paramètre dimenssionant la sensibilité d'un tel instrument, de même que ça capacité à filter les longeurs d'ondes indésirables ($\gamma$).")
+st.markdown("Nous constatons qu'au dela des paramètres de la cible et du collecteur, la stabilité du système optique va impacter ce SNR via la fluctuation de phase $\sigma_{\phi}$, ce qui en fait un paramètre dimenssionant la sensibilité d'un tel instrument, de même que ça capacité à filter les longeurs d'ondes indésirables ($\gamma$).")
 
 # VII.
 ################################################## Conclusion
