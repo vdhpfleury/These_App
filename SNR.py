@@ -19,7 +19,6 @@ def fonction_porte(x, a, b):
     """
     return np.where((x >= a) & (x <= b), 1, 0) 
 
-
 st.title("Rapport Signal Sur Bruit Appliqué à l'Interférométrie")
 
 st.subheader("Sommaire", divider="gray")
