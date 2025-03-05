@@ -815,7 +815,22 @@ with col1 :
     )
 
 with col2 : 
+    # Tracé du SED de l'étoile
+    SEDstar = np.pi * (Rstar/Dstar)**2 * planck(Wavelength, Tstar)
+    SEDstar *= 1e26 * (Wavelength)**2 / (cst.c.value)  # Conversion en Jy
+    fig2, ax = plt.subplots(1, 1, figsize=(10, 8))
+    ax.set_title("Stellar SED")
+    ax.plot(Wavelength*1e6, SEDstar, label=f'{name[id]}')
+    plt.legend()
+    st.pyplot(fig2)
 
+    buf2 = save_plot(fig2)  # Sauvegarde en mémoire
+    st.download_button(
+        label="Download SED Plot",
+        data=buf2,
+        file_name="SED.png",
+        mime="image/png"
+    )
 
 
 
