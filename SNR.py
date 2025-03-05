@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import io
+import astropy
 
 ## Définition des constantes
 h   = 6.626e-34  # Constante de Planck (m^2 kg / s)
